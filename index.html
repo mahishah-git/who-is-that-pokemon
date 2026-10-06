@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Who's That Pokémon?</title>
+
+  <!-- Playful font (falls back to a rounded system font if offline) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="game">
+
+    <h1 class="title">WHO'S THAT POKÉMON?</h1>
+
+    <!-- ========== START SCREEN ========== -->
+    <section id="start-screen" class="screen">
+      <div class="pokeball" aria-hidden="true"></div>
+      <p class="intro">Guess the Pokémon from its shadow.<br>All 20 Pokémon. How many can you get?</p>
+      <button id="start-btn" class="btn btn-red">START GAME</button>
+    </section>
+
+    <!-- ========== GAME SCREEN ========== -->
+    <section id="game-screen" class="screen hidden">
+
+      <div class="stats">
+        <div class="stat">SCORE: <span id="score">0</span> / <span class="total-rounds">20</span></div>
+        <div class="stat">ROUND: <span id="round">1</span> / <span class="total-rounds">20</span></div>
+      </div>
+
+      <div class="stage">
+        <img id="pokemon-img" class="pokemon-img silhouette" src="" alt="Mystery Pokémon silhouette">
+      </div>
+
+      <p class="prompt">Choose the correct Pokémon:</p>
+
+      <div id="answers" class="answers">
+        <!-- 4 answer buttons are added here by script.js -->
+      </div>
+
+      <div id="result" class="result hidden" aria-live="polite">
+        <p id="result-title" class="result-title"></p>
+        <p id="result-text" class="result-text"></p>
+        <button id="next-btn" class="btn btn-yellow">NEXT POKÉMON</button>
+      </div>
+
+    </section>
+
+    <!-- ========== FINAL SCREEN ========== -->
+    <section id="end-screen" class="screen hidden">
+      <p class="final-score">FINAL SCORE: <span id="final-score">0</span> / <span class="total-rounds">20</span></p>
+      <p id="final-message" class="final-message"></p>
+      <button id="play-again-btn" class="btn btn-red">PLAY AGAIN</button>
+    </section>
+
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

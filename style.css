@@ -1,0 +1,337 @@
+/* ---------- Colors (easy to change in one place) ---------- */
+:root {
+  --cream: #fff6dc;
+  --red: #ee1515;
+  --red-dark: #b50d0d;
+  --blue: #3b4cca;
+  --blue-dark: #2a3799;
+  --blue-light: #5d6fe6;
+  --yellow: #ffcb05;
+  --yellow-dark: #c99a00;
+  --green: #2fa84f;
+  --green-dark: #1f7a38;
+  --ink: #26264a;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: "Fredoka", "Trebuchet MS", "Segoe UI", sans-serif;
+  color: var(--ink);
+  background-color: var(--cream);
+  /* soft polka dots */
+  background-image: radial-gradient(rgba(238, 21, 21, 0.07) 3px, transparent 3px);
+  background-size: 28px 28px;
+  display: flex;
+  justify-content: center;
+  padding: 24px 16px 40px;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ---------- Main card ---------- */
+.game {
+  width: 100%;
+  max-width: 560px;
+  background: var(--white);
+  border: 5px solid var(--red);
+  border-radius: 32px;
+  box-shadow: 0 10px 0 var(--red-dark), 0 18px 30px rgba(0, 0, 0, 0.15);
+  padding: 24px 22px 28px;
+  align-self: flex-start;
+  text-align: center;
+}
+
+/* ---------- Title (classic Pokémon-logo look) ---------- */
+.title {
+  margin: 0 0 18px;
+  font-size: clamp(1.7rem, 7vw, 2.6rem);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: 1px;
+  color: var(--yellow);
+  -webkit-text-stroke: 7px var(--blue);
+  paint-order: stroke fill;
+  text-shadow: 0 4px 0 var(--blue-dark);
+}
+
+.screen {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ---------- Start screen ---------- */
+.pokeball {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 6px solid var(--ink);
+  background: linear-gradient(to bottom, var(--red) 0 46%, var(--ink) 46% 54%, var(--white) 54% 100%);
+  position: relative;
+  margin: 8px 0 20px;
+  box-shadow: 0 8px 0 rgba(0, 0, 0, 0.12);
+  animation: wobble 2.4s ease-in-out infinite;
+}
+
+.pokeball::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 44px;
+  height: 44px;
+  transform: translate(-50%, -50%);
+  background: var(--white);
+  border: 6px solid var(--ink);
+  border-radius: 50%;
+}
+
+@keyframes wobble {
+  0%, 100% { transform: rotate(-6deg); }
+  50% { transform: rotate(6deg); }
+}
+
+.intro {
+  font-size: 1.15rem;
+  line-height: 1.5;
+  margin: 0 0 22px;
+}
+
+/* ---------- Score + round ---------- */
+.stats {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  width: 100%;
+  margin-bottom: 14px;
+}
+
+.stat {
+  flex: 1;
+  background: var(--yellow);
+  color: var(--ink);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 8px 10px;
+  border-radius: 999px;
+  border: 3px solid var(--yellow-dark);
+}
+
+/* ---------- Silhouette stage (the main focus) ---------- */
+.stage {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  max-height: 380px;
+  border-radius: 24px;
+  border: 5px solid var(--blue);
+  box-shadow: 0 6px 0 var(--blue-dark);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 18px;
+  /* classic blue "sunburst" behind the Pokémon */
+  background: repeating-conic-gradient(var(--blue-light) 0deg 10deg, var(--blue) 10deg 20deg);
+  overflow: hidden;
+}
+
+.pokemon-img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  transition: filter 0.5s ease, transform 0.5s ease;
+  filter: drop-shadow(0 6px 6px rgba(0, 0, 0, 0.25));
+}
+
+/* THE "HIDDEN" LOOK: same image, just dimmed.
+   Change --dim to adjust it: 0 = fully black, 1 = normal colors.
+   0.3 means the image is 70% darker. */
+.pokemon-img.silhouette {
+  --dim: 0.3;
+  filter: brightness(var(--dim));
+  border-radius: 18px;   /* makes the image's background box look intentional */
+}
+
+/* little hop when the real Pokémon is revealed */
+.pokemon-img.revealed {
+  animation: hop 0.5s ease;
+}
+
+@keyframes hop {
+  0% { transform: scale(0.9); }
+  60% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+.prompt {
+  font-size: 1.2rem;
+  font-weight: 600;
+  margin: 20px 0 12px;
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  font-family: inherit;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: var(--white);
+  border: none;
+  border-radius: 18px;
+  padding: 14px 28px;
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, filter 0.12s ease;
+}
+
+.btn:hover:not(:disabled) {
+  transform: translateY(-3px);
+  filter: brightness(1.06);
+}
+
+.btn:active:not(:disabled) {
+  transform: translateY(4px);
+  box-shadow: none !important;
+}
+
+.btn:focus-visible {
+  outline: 4px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.btn-red {
+  background: var(--red);
+  box-shadow: 0 6px 0 var(--red-dark);
+}
+
+.btn-yellow {
+  background: var(--yellow);
+  color: var(--ink);
+  box-shadow: 0 6px 0 var(--yellow-dark);
+}
+
+/* ---------- Answer buttons ---------- */
+.answers {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  width: 100%;
+}
+
+.answer-btn {
+  background: var(--blue);
+  box-shadow: 0 6px 0 var(--blue-dark);
+  padding: 16px 10px;
+  width: 100%;
+}
+
+.answer-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.55;
+}
+
+/* after answering: show which one was right / wrong */
+.answer-btn.correct {
+  background: var(--green);
+  box-shadow: 0 6px 0 var(--green-dark);
+  opacity: 1;
+}
+
+.answer-btn.wrong {
+  background: var(--red);
+  box-shadow: 0 6px 0 var(--red-dark);
+  opacity: 1;
+}
+
+/* ---------- Result message ---------- */
+.result {
+  width: 100%;
+  margin-top: 22px;
+  padding: 16px;
+  border-radius: 20px;
+  background: var(--cream);
+  border: 3px dashed var(--yellow-dark);
+}
+
+.result-title {
+  margin: 0;
+  font-size: 1.7rem;
+  font-weight: 700;
+}
+
+.result-title.good {
+  color: var(--green-dark);
+}
+
+.result-title.bad {
+  color: var(--red-dark);
+}
+
+.result-text {
+  margin: 4px 0 16px;
+  font-size: 1.2rem;
+}
+
+/* ---------- Final screen ---------- */
+.final-score {
+  font-size: 2rem;
+  font-weight: 700;
+  margin: 10px 0 8px;
+  color: var(--blue);
+}
+
+.final-message {
+  font-size: 1.6rem;
+  font-weight: 600;
+  margin: 0 0 26px;
+  padding: 10px 22px;
+  background: var(--yellow);
+  border: 3px solid var(--yellow-dark);
+  border-radius: 999px;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 480px) {
+  body {
+    padding: 14px 10px 30px;
+  }
+
+  .game {
+    padding: 18px 14px 24px;
+    border-radius: 26px;
+  }
+
+  .stat {
+    font-size: 0.9rem;
+  }
+
+  .answers {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+}
+
+/* ---------- Larger screens ---------- */
+@media (min-width: 900px) {
+  body {
+    padding-top: 40px;
+  }
+
+  .game {
+    max-width: 620px;
+  }
+}
+
+/* Respect people who prefer less motion */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
